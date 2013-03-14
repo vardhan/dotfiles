@@ -1,5 +1,12 @@
-set t_Co=256 " all the colors!
-colors xoria256
+" plugins:
+"   pathogen (https://github.com/tpope/vim-pathogen)
+"   ctrlp (https://github.com/kien/ctrlp.vim)
+"   syntastic (https://github.com/scrooloose/syntastic)
+
+if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+    set t_Co=256
+    colors xoria256
+endif
 
 set autoread "reload files changed outside vim
 set number "line numbers
@@ -11,6 +18,13 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set textwidth=80
+
+set incsearch
+set hlsearch
+
+" split
+map 2 :sp<CR>
+map 3 :vsp<CR>
 
 " delete word
 imap <Esc><BS> <C-W>
@@ -44,3 +58,5 @@ map ww <ESC>:w!<CR>
 " ctags and related
 set tags=tags;/ " keep going up a dir until you find a tags file
 filetype plugin on
+
+call pathogen#infect()
