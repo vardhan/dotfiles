@@ -60,3 +60,6 @@ set tags=tags;/ " keep going up a dir until you find a tags file
 filetype plugin on
 
 call pathogen#infect()
+
+"vim-powerline:
+set laststatus=2
