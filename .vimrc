@@ -1,4 +1,4 @@
-" plugins:
+"plugins:
 "   pathogen (https://github.com/tpope/vim-pathogen)
 "   ctrlp (https://github.com/kien/ctrlp.vim)
 "   syntastic (https://github.com/scrooloose/syntastic)
@@ -14,8 +14,8 @@ set showmatch "show matching braces
 syntax enable
 set ai "set autoindent
 set smartindent "set smartindent
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set expandtab
 set textwidth=80
 
@@ -55,11 +55,47 @@ inoremap <C-f> <Esc><C-f>i
 map qq <Esc>:q<CR>
 map ww <ESC>:w!<CR>
 
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+let g:ctrlp_match_window = 'bottom,order:ttb'
+
+" vundle
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'kien/ctrlp.vim'
+
+call vundle#end()            " required
+filetype plugin indent on    " required
+
 " ctags and related
 set tags=tags;/ " keep going up a dir until you find a tags file
-filetype plugin on
+filetype plugin indent on
 
 call pathogen#infect()
 
-"vim-powerline:
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+let g:ctrlp_by_filename = 1
+
+" vim-powerline:
 set laststatus=2
+
+let s:default_path = escape(&path, '\ ') " store default value of 'path'
+
+" Always add the current file's directory to the path and tags list if not
+" already there. Add it to the beginning to speed up searches.
+autocmd BufRead *
+      \ let s:tempPath=escape(escape(expand("%:p:h"), ' '), '\ ') |
+      \ exec "set path-=".s:tempPath |
+      \ exec "set path-=".s:default_path |
+      \ exec "set path^=".s:tempPath |
+      \ exec "set path^=".s:default_path
+
+autocmd BufNewFile,BufRead *.tmpl setf jinja
