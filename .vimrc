@@ -1,5 +1,4 @@
 "plugins:
-"   pathogen (https://github.com/tpope/vim-pathogen)
 "   ctrlp (https://github.com/kien/ctrlp.vim)
 "   syntastic (https://github.com/scrooloose/syntastic)
 
@@ -78,8 +77,6 @@ filetype plugin indent on    " required
 " ctags and related
 set tags=tags;/ " keep going up a dir until you find a tags file
 filetype plugin indent on
-
-call pathogen#infect()
 
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
 let g:ctrlp_by_filename = 1
